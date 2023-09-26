@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import {motion , AnimatePresence}  from "framer-motion"
 
 import { ChallengesContext } from '../store/challenges-context.jsx';
 
@@ -27,7 +28,13 @@ export default function ChallengeItem({
   }
 
   return (
-    <li>
+    <motion.li
+    layout
+    exit={{y:-30 , opacity : 0}}
+    // intial ={{scale : 0.5 , opacity : 0}}
+    // animate = {{scale : [0.9 , 1.2 ,1 ] , opacity :1 }}
+    // transition={{type : "spring"}}
+    >
       <article className="challenge-item">
         <header>
           <img {...challenge.image} />
@@ -42,23 +49,30 @@ export default function ChallengeItem({
             </p>
           </div>
         </header>
+        {/* <div className={`challenge-item-details ${isExpanded ? "expanded" :""}`}> */}
         <div className="challenge-item-details">
           <p>
             <button onClick={onViewDetails}>
               View Details{' '}
-              <span className="challenge-item-details-icon">&#9650;</span>
-            </button>
-          </p>
-
+              <motion.span 
+              className="challenge-item-details-icon" 
+              animate={{rotate : isExpanded ? 180 : 0}} >
+            &#9650;</motion.span>
+            </button> 
+          </p> 
+          
+          <AnimatePresence>
           {isExpanded && (
             <div>
-              <p className="challenge-item-description">
+              <motion.p className="challenge-item-description" initial={{opacity:0 , height : 0}} animate={{opacity: 1 , height: "auto"}}  exit={{opacity:0 , height :0}} >
                 {challenge.description}
-              </p>
+              </motion.p>
             </div>
           )}
+          </AnimatePresence>
+
         </div>
       </article>
-    </li>
+    </motion.li>
   );
 }

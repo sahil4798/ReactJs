@@ -22,6 +22,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/Home";
+// import Event from "./pages/Event";
 import Event, { loader as eventsLoader } from "./pages/Event";
 import EventDetail from "./pages/EventDetail";
 import NewEvent from "./pages/NewEvent";
